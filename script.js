@@ -4,7 +4,7 @@ let secondNumber = document.querySelector('.second-number');
 let result = document.querySelector('.result');
 let resultInput = document.querySelector('.result-input');
 let answerPlate = document.querySelector('.answer-plate');
-let count = document.querySelector('.count');
+let count = document.querySelector('.count-number');
 
 function mathExample(min=1, max=10) {
 	let operations = ['*', '/', '+', '-'];
@@ -35,8 +35,7 @@ function mathExample(min=1, max=10) {
 }
 mathExample(1,10)
 
-resultInput.addEventListener('change', () => {
-
+resultInput.addEventListener('change', () => { 
 	if (resultInput.value == result) {
 		count.textContent = +count.textContent + 10;
 		answerPlate.textContent = 'Правильно'

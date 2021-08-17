@@ -1,9 +1,135 @@
-.raindrop {
-	/* border: 3px solid black;
-	border-radius: 50px;
-	
-	background-color: black; */
-	margin: 0 auto;
-	width: 50px;
-	height: 50px;
+
+html {
+	box-sizing: border-box;
 }
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+	padding: 0;
+	margin: 0;
+	color: white;
+}
+
+.body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	font-style: normal;
+}
+
+.container{
+	display: flex;
+}
+.raindrop {
+	 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 70%;
+	height: 100vh;
+}
+
+.raindrop p{
+	color: black;
+}
+
+.capelca{
+	border: 1px solid rgb(64, 243, 234);
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	background-color: rgb(19, 179, 171);
+}
+.first-number,.second-number{
+	text-align: center;
+	font-weight: 500;
+	font-size: 22px;
+	height: 10px;
+}
+.operation{
+	display: flex;
+	height: 10px;
+	font-weight: bold;
+	font-size: 22px;
+	margin: 10px 0 5px 10px;
+}
+
+
+/* .wave{
+	position: absolute;
+	bottom: 0;
+	margin:0;
+	width: 70%;
+	height: 200px;
+	background-image: url('./img/wave.svg');
+} */
+
+.calculator{
+	width: 30%;
+	height: 100vh;
+	background-color: rgb(140, 140, 248);
+	color:black;
+	display: flex;
+	flex-direction: column;
+}
+
+.count{
+	position: relative;
+  display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80%;
+	height: 60px;
+	margin-left: 50px;
+	background-color: rgb(241, 232, 232);
+	border-radius: 0 0 50px 50px;
+	font-size: 32px;
+	color: black;
+	border: 3px solid white;
+	border-top: 0px ;
+}
+.count-number{
+	color: rgb(175, 33, 33);
+}
+
+.result-input{
+	color: black;
+	width: 100px;
+	height: 20px;
+	margin: auto auto;
+}
+
+.count::before{
+	content: '';
+	position: absolute;
+	width: 22px;
+	height: 22px;
+	background-image: url('img/icons/star_77949.svg');
+	left: 130px;
+}
+
+::selection{background-color: salmon; color: white;}
+.parallax > use{
+  animation:move-forever 12s linear infinite;
+  &:nth-child(1){animation-delay:-2s;}
+  &:nth-child(2){animation-delay:-2s; animation-duration:5s}
+  &:nth-child(3){animation-delay:-4s; animation-duration:3s}
+}
+
+@keyframes move-forever{
+  0%{transform: translate(-90px , 0%)}
+  100%{transform: translate(85px , 0%)} 
+}
+
+.editorial {
+  display: block;
+	position: absolute;
+	bottom: 0;
+  width: 70%;
+  height: 10em;
+  max-height: 100vh;
+  margin: 0;
+	left: 0;
+}
+ 
