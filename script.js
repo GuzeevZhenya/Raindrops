@@ -56,8 +56,9 @@ resultInput.addEventListener('change', () => {
 })
 
 
-function capelcaMove(max,min) {
 
+//Работа с падением объекта
+function capelcaMove(max,min) {
 	 capelca.style.left = `${min}px`
 }
 
@@ -98,14 +99,16 @@ function getRandomPosition(min, max) {
 
 
 let alive = setInterval(function () {
-	let dino = parseInt(window.getComputedStyle(circle).getPropertyValue('bottom'));
-
 	let wave = document.querySelector('.wave .editorial');
-	// let waveHeight = getComputedStyle(wave).height;
 	let waveHeight = wave.clientHeight;
-	console.log(dino,waveHeight)
+	let dino = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
+	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight - 60;
 
-	if(dino <= waveHeight){
+	// let waveHeight = getComputedStyle(wave).height;
+
+	console.log(dino,waveHeight,windowMaxHeight)
+
+	if(dino >= windowMaxHeight){
 		alert('end')
 	}
  
