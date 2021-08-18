@@ -5,7 +5,6 @@ let result = document.querySelector('.result');
 let resultInput = document.querySelector('.result-input');
 let answerPlate = document.querySelector('.answer-plate');
 let count = document.querySelector('.count-number');
-
 let windowMaxWidth = window.screen.availWidth - (window.outerWidth - window.innerWidth);
 
 
