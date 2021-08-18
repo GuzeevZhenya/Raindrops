@@ -6,6 +6,10 @@ let resultInput = document.querySelector('.result-input');
 let answerPlate = document.querySelector('.answer-plate');
 let count = document.querySelector('.count-number');
 
+
+
+let raindrop = document.querySelector('.raindrop')
+
 function mathExample(min=1, max=10) {
 	let operations = ['*', '/', '+', '-'];
 	min = Math.ceil(min);
@@ -16,6 +20,9 @@ function mathExample(min=1, max=10) {
 	
 	if (operation.textContent == '/') {
 		firstNumber.textContent = (firstNumber.textContent * secondNumber.textContent);
+	}
+	if (operation.textContent == '-') {
+		firstNumber.textContent = (firstNumber.textContent + secondNumber.textContent);
 	}
 
 	switch (operation.textContent) {
@@ -46,3 +53,45 @@ resultInput.addEventListener('change', () => {
 	resultInput.value = '';
 	mathExample(1, 10)
 })
+
+
+function capelcaMove(max,min) {
+	let capelca = document.querySelector('.capelca')
+	 capelca.style.left = `${min}px`
+	  
+}
+
+capelcaMove(windowMaxWidth,0)
+
+
+// function createRandomCircle() {
+// 	const circle = document.createElement('div');
+// 	const {width,height} = raindrop.getBoundingClientRect()
+// 	const x = getRandomPosition(0, width - 50);
+
+
+// 	const firstNumber = document.createElement('p')
+// 	const operation = document.createElement('p')
+// 	const secondNumber = document.createElement('p')
+	
+// 	firstNumber.classList.add('first-number')
+// 	operation.classList.add('operation')
+// 	secondNumber.classList.add('second-number')
+
+
+// 	circle.classList.add('circle');
+// 	circle.style.width = `60px`;
+// 	circle.style.height = `60px`;
+// 	circle.style.left = `${x}px`
+
+// 	raindrop.append(circle);
+// 	circle.append(firstNumber)
+// 	circle.append(operation)
+// 	circle.append(secondNumber)
+
+// }
+// createRandomCircle();
+
+// function getRandomPosition(min, max) {
+// 	return Math.round(Math.random()*(max-min)+min)
+// }
