@@ -64,34 +64,34 @@ function capelcaMove(max,min) {
 capelcaMove(windowMaxWidth,0)
 
 
-// function createRandomCircle() {
-// 	const circle = document.createElement('div');
-// 	const {width,height} = raindrop.getBoundingClientRect()
-// 	const x = getRandomPosition(0, width - 50);
+function createRandomCircle() {
+	const circle = document.createElement('div');
+	const {width,height} = raindrop.getBoundingClientRect()
+	const x = getRandomPosition(0, width - 50);
 
 
-// 	const firstNumber = document.createElement('p')
-// 	const operation = document.createElement('p')
-// 	const secondNumber = document.createElement('p')
+	const firstNumber = document.createElement('p')
+	const operation = document.createElement('p')
+	const secondNumber = document.createElement('p')
 	
-// 	firstNumber.classList.add('first-number')
-// 	operation.classList.add('operation')
-// 	secondNumber.classList.add('second-number')
+	firstNumber.classList.add('first-number')
+	operation.classList.add('operation')
+	secondNumber.classList.add('second-number')
 
 
-// 	circle.classList.add('circle');
-// 	circle.style.width = `60px`;
-// 	circle.style.height = `60px`;
-// 	circle.style.left = `${x}px`
+	circle.classList.add('circle');
+	circle.style.width = `60px`;
+	circle.style.height = `60px`;
+	circle.style.left = `${x}px`
 
-// 	raindrop.append(circle);
-// 	circle.append(firstNumber)
-// 	circle.append(operation)
-// 	circle.append(secondNumber)
+	raindrop.append(circle);
+	circle.append(firstNumber)
+	circle.append(operation)
+	circle.append(secondNumber)
 
-// }
-// createRandomCircle();
+}
+createRandomCircle();
 
-// function getRandomPosition(min, max) {
-// 	return Math.round(Math.random()*(max-min)+min)
-// }
+function getRandomPosition(min, max) {
+	return Math.round(Math.random()*(max-min)+min)
+}
