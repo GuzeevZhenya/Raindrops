@@ -6,6 +6,7 @@ let resultInput = document.querySelector('.result-input');
 let answerPlate = document.querySelector('.answer-plate');
 let count = document.querySelector('.count-number');
 let windowMaxWidth = window.screen.availWidth - (window.outerWidth - window.innerWidth);
+let capelca = document.querySelector('.capelca')
 
 
 let raindrop = document.querySelector('.raindrop')
@@ -56,16 +57,15 @@ resultInput.addEventListener('change', () => {
 
 
 function capelcaMove(max,min) {
-	let capelca = document.querySelector('.capelca')
+
 	 capelca.style.left = `${min}px`
-	  
 }
 
 capelcaMove(windowMaxWidth,0)
 
-
+const circle = document.createElement('div');
 function createRandomCircle() {
-	const circle = document.createElement('div');
+	
 	const {width,height} = raindrop.getBoundingClientRect()
 	const x = getRandomPosition(0, width - 50);
 
@@ -95,3 +95,20 @@ createRandomCircle();
 function getRandomPosition(min, max) {
 	return Math.round(Math.random()*(max-min)+min)
 }
+
+
+let alive = setInterval(function () {
+	let dino = parseInt(window.getComputedStyle(circle).getPropertyValue('bottom'));
+
+	let wave = document.querySelector('.wave .editorial');
+	// let waveHeight = getComputedStyle(wave).height;
+	let waveHeight = wave.clientHeight;
+	console.log(dino,waveHeight)
+
+	if(dino <= waveHeight){
+		alert('end')
+	}
+ 
+}, 100)
+
+
