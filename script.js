@@ -1,6 +1,6 @@
-let firstNumber = document.querySelector('.first-number');
-let operation = document.querySelector('.operation')
-let secondNumber = document.querySelector('.second-number');
+// let firstNumber = document.querySelector('.first-number');
+// let operation = document.querySelector('.operation')
+// let secondNumber = document.querySelector('.second-number');
 let result = document.querySelector('.result');
 let resultInput = document.querySelector('.result-input');
 let answerPlate = document.querySelector('.answer-plate');
@@ -10,15 +10,16 @@ let capelca = document.querySelector('.capelca')
 
 
 let raindrop = document.querySelector('.raindrop')
-
 let operations = ['*', '/', '+', '-'];
 
+
+
 function mathExample(min=1, max=10) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	firstNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
-	operation.textContent = operations[Math.floor(Math.random() * operations.length)];
-	secondNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+	// min = Math.ceil(min);
+	// max = Math.floor(max);
+	// firstNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+	// operation.textContent = operations[Math.floor(Math.random() * operations.length)];
+	// secondNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
 	
 	if (operation.textContent == '/') {
 		firstNumber.textContent = (firstNumber.textContent * secondNumber.textContent);
@@ -43,7 +44,6 @@ function mathExample(min=1, max=10) {
 	}
 }
 
-
 resultInput.addEventListener('change', () => { 
 	if (resultInput.value == result) {
 		count.textContent = +count.textContent + 10;
@@ -65,13 +65,15 @@ resultInput.addEventListener('change', () => {
 
 // capelcaMove(windowMaxWidth,0)
 
-const circle = document.createElement('div');
 
+let circle = document.createElement('div');
 
 function createRandomCircle(max,min) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+
 	const {width,height} = raindrop.getBoundingClientRect()
 	const x = getRandomPosition(0, width - 50);
-
 
 	const firstNumber = document.createElement('p')
 	const operation = document.createElement('p')
@@ -95,9 +97,11 @@ function createRandomCircle(max,min) {
 	circle.append(firstNumber)
 	circle.append(operation)
 	circle.append(secondNumber)
-
 }
+
 createRandomCircle(1,10);
+
+
 
 function getRandomPosition(min, max) {
 	return Math.round(Math.random()*(max-min)+min)
@@ -107,15 +111,14 @@ function getRandomPosition(min, max) {
 let alive = setInterval(function () {
 	let wave = document.querySelector('.wave .editorial');
 	let waveHeight = wave.clientHeight;
-	let dino = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
+	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight;
 
-	// let waveHeight = getComputedStyle(wave).height;
- 
-	console.log(dino,waveHeight,windowMaxHeight)
-
-	if(dino >= windowMaxHeight){
-		createRandomCircle(1,10)
+	if (circleSize >= windowMaxHeight) {
+		while (circle.firstChild) {
+			circle.removeChild(circle.firstChild);
+		}
+		createRandomCircle(1, 10);
 	}
  
 }, 100)
