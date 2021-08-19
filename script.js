@@ -11,8 +11,9 @@ let capelca = document.querySelector('.capelca')
 
 let raindrop = document.querySelector('.raindrop')
 
+let operations = ['*', '/', '+', '-'];
+
 function mathExample(min=1, max=10) {
-	let operations = ['*', '/', '+', '-'];
 	min = Math.ceil(min);
 	max = Math.floor(max);
 	firstNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -41,7 +42,7 @@ function mathExample(min=1, max=10) {
 			break;
 	}
 }
-mathExample(1,10)
+
 
 resultInput.addEventListener('change', () => { 
 	if (resultInput.value == result) {
@@ -58,15 +59,16 @@ resultInput.addEventListener('change', () => {
 
 
 //Работа с падением объекта
-function capelcaMove(max,min) {
-	 capelca.style.left = `${min}px`
-}
+// function capelcaMove(max,min) {
+// 	 capelca.style.left = `${min}px`
+// }
 
-capelcaMove(windowMaxWidth,0)
+// capelcaMove(windowMaxWidth,0)
 
 const circle = document.createElement('div');
-function createRandomCircle() {
-	
+
+
+function createRandomCircle(max,min) {
 	const {width,height} = raindrop.getBoundingClientRect()
 	const x = getRandomPosition(0, width - 50);
 
@@ -80,6 +82,10 @@ function createRandomCircle() {
 	secondNumber.classList.add('second-number')
 
 
+	firstNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+	operation.textContent = operations[Math.floor(Math.random() * operations.length)];
+	secondNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+
 	circle.classList.add('circle');
 	circle.style.width = `60px`;
 	circle.style.height = `60px`;
@@ -91,7 +97,7 @@ function createRandomCircle() {
 	circle.append(secondNumber)
 
 }
-createRandomCircle();
+createRandomCircle(1,10);
 
 function getRandomPosition(min, max) {
 	return Math.round(Math.random()*(max-min)+min)
@@ -102,14 +108,14 @@ let alive = setInterval(function () {
 	let wave = document.querySelector('.wave .editorial');
 	let waveHeight = wave.clientHeight;
 	let dino = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
-	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight - 60;
+	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight;
 
 	// let waveHeight = getComputedStyle(wave).height;
-
+ 
 	console.log(dino,waveHeight,windowMaxHeight)
 
 	if(dino >= windowMaxHeight){
-		alert('end')
+		createRandomCircle(1,10)
 	}
  
 }, 100)
