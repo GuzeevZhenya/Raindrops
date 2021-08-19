@@ -21,42 +21,24 @@ function mathExample(min=1, max=10) {
 	// operation.textContent = operations[Math.floor(Math.random() * operations.length)];
 	// secondNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
 	
-	if (operation.textContent == '/') {
-		firstNumber.textContent = (firstNumber.textContent * secondNumber.textContent);
-	}
-	if (operation.textContent == '-') {
-		firstNumber.textContent = (firstNumber.textContent + secondNumber.textContent);
-	}
 
-	switch (operation.textContent) {
-		case '+':
-			result = +firstNumber.textContent + +secondNumber.textContent;
-			break;
-		case '-':
-			result = firstNumber.textContent - secondNumber.textContent;
-			break;
-		case '*':
-			result = firstNumber.textContent * secondNumber.textContent;
-			break;
-		case '/':
-			result = firstNumber.textContent / secondNumber.textContent;
-			break;
-	}
 }
 
 resultInput.addEventListener('change', () => { 
 	if (resultInput.value == result) {
 		count.textContent = +count.textContent + 10;
-		answerPlate.textContent = 'Правильно'
+		// answerPlate.textContent = 'Правильно'
+		console.log(resultInput.value,result)
+		console.log('Правильно')
 	} else {
 		count.textContent = +count.textContent - 5;
-		answerPlate.textContent = 'Не правильно'
+		// answerPlate.textContent = 'Не правильно'
+		console.log(resultInput.value,result)
+		console.log('не Правильно') 
 	}
 	resultInput.value = '';
 	mathExample(1, 10)
 })
-
-
 
 //Работа с падением объекта
 // function capelcaMove(max,min) {
@@ -88,6 +70,28 @@ function createRandomCircle(max,min) {
 	operation.textContent = operations[Math.floor(Math.random() * operations.length)];
 	secondNumber.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
 
+	if (operation.textContent == '/') {
+		firstNumber.textContent = (firstNumber.textContent * secondNumber.textContent);
+	}
+	if (operation.textContent == '-') {
+		firstNumber.textContent = (firstNumber.textContent + secondNumber.textContent);
+	}
+
+	switch (operation.textContent) {
+		case '+':
+			result = +firstNumber.textContent + +secondNumber.textContent;
+			break;
+		case '-':
+			result = firstNumber.textContent - secondNumber.textContent;
+			break;
+		case '*':
+			result = firstNumber.textContent * secondNumber.textContent;
+			break;
+		case '/':
+			result = firstNumber.textContent / secondNumber.textContent;
+			break;
+	}
+
 	circle.classList.add('circle');
 	circle.style.width = `60px`;
 	circle.style.height = `60px`;
@@ -113,14 +117,16 @@ let alive = setInterval(function () {
 	let waveHeight = wave.clientHeight;
 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight;
+	console.log(result)
 
-	if (circleSize >= windowMaxHeight) {
+	if (circleSize >= windowMaxHeight || resultInput.value == result) {
+		resultInput.value = '';
+		count.textContent = +count.textContent + 10;
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
 		createRandomCircle(1, 10);
 	}
- 
 }, 100)
 
 
