@@ -117,11 +117,21 @@ let alive = setInterval(function () {
 	let waveHeight = wave.clientHeight;
 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveHeight;
+	let bonusCount = 0;
 	console.log(result)
 
-	if (circleSize >= windowMaxHeight || resultInput.value == result) {
+	if ( resultInput.value == result) {
+		bonusCount += 1;
 		resultInput.value = '';
-		count.textContent = +count.textContent + 10;
+		count.textContent = +count.textContent + 10 + bonusCount;
+		while (circle.firstChild) {
+			circle.removeChild(circle.firstChild);
+		}
+		createRandomCircle(1, 10);
+	} if (circleSize >= windowMaxHeight) {
+		bonusCount = 0;
+		resultInput.value = '';
+		count.textContent = +count.textContent - 7 + bonusCount;
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
