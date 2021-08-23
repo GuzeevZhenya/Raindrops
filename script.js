@@ -140,7 +140,7 @@ function gameOverBlock(count) {
 
 function startNewGame(button){
 	button.addEventListener('click',()=>{
-	//  window.location.reload() // ну тут у меня случились беды с головой,зато рабочий вариант)
+	window.location.reload() // ну тут у меня случились беды с головой,зато рабочий вариант)
 	 
 	})
 }
