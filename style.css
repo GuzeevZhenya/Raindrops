@@ -169,6 +169,7 @@ html {
 	color: black;
 	margin:auto auto;
 	border-radius:50%;
+	flex-direction:column;
 }
 
 
@@ -178,6 +179,12 @@ html {
   font-size:2em;
   text-align:center;
   animation: example 5s linear infinite;
+}
+
+.game-count{
+	display:flex;
+	font-size:32px;
+	color:white;
 }
 
 
