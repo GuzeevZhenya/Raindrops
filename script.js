@@ -114,12 +114,7 @@ let alive = setInterval(function () {
 			}
 	}
 
-},300)
-
-// setInterval(alive, 300);
- 
- 
-// setInterval(alive,300)
+},1500)
 
 
 function gameOverBlock(count) {
@@ -134,6 +129,7 @@ function gameOverBlock(count) {
 	gameOver.append(gameCount);
 	let newGameButton = document.createElement('button');
 	newGameButton.textContent = 'Новая игра';
+	newGameButton.classList.add('restart-btn')
 	gameOver.append(newGameButton);
 	startNewGame(newGameButton)
 }

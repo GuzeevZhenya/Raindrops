@@ -187,6 +187,20 @@ html {
 	color:white;
 }
 
+.restart-btn{
+	background:white;
+	color:black;
+	outline: none;
+	font-size:16px;
+	text-align: center;
+	padding: 4px 7px;
+	border: none;
+	border-radius: 5px;
+  text-decoration: none;
+	margin-top:10px;
+	
+}
+
 
 @keyframes example {
   0%{color:lime; text-shadow:0 0 20px green}
