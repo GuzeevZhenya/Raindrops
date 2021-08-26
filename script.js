@@ -6,14 +6,14 @@ let count = document.querySelector('.count-number');
 let circle = document.createElement('div');
 let result;
 
-	// const startGame = document.querySelector('.start-game');
-	// startGame.style.display = 'none';
+const startGame = document.querySelector('.start-game');
+startGame.style.display = 'none';
 
-gameStartBtn.addEventListener('click', () => {
-	const startGame = document.querySelector('.start-game');
-	startGame.style.display = 'none';
-	createNewCapelca(getRandomPosition(0, width - 50));
-})
+// gameStartBtn.addEventListener('click', () => {
+// 	const startGame = document.querySelector('.start-game');
+// 	startGame.style.display = 'none';
+// 	createNewCapelca(getRandomPosition(0, width - 50));
+// })
 
 const {
 	width
@@ -26,14 +26,9 @@ function createNewCapelca(x = 40) {
 		secondNumber
 	} = addCapelcaNumbers();
 
-	circle.classList.add('circle');
-	circle.style.width = `60px`;
-	circle.style.height = `60px`;
-	circle.style.left = `${x}px`
-
 
 	if (operation == '/') {
-		firstNumber= (firstNumber * secondNumber);
+		firstNumber = (firstNumber * secondNumber);
 	}
 	if (operation == '-') {
 		firstNumber = (firstNumber + secondNumber);
@@ -53,7 +48,10 @@ function createNewCapelca(x = 40) {
 			result = firstNumber / secondNumber;
 			break;
 	}
-
+	circle.classList.add('circle');
+	circle.style.width = `60px`;
+	circle.style.height = `60px`;
+	circle.style.left = `${x}px`
 
 	raindrop.append(circle);
 	circle.append(firstNumber)
@@ -77,6 +75,7 @@ function getRandomPosition(min, max) {
 }
 
 // createNewCapelca(getRandomPosition(0, width - 50));
+
 let waveSize = 200;
 
 function circleLife() {
@@ -94,9 +93,44 @@ function circleLife() {
 			}
 			createNewCapelca(getRandomPosition(0, width - 50));
 		}
+		
 	})
+	console.log(circleSize, windowMaxHeight)
+	if (circleSize >= windowMaxHeight) {
+		errors += 1;
+		resultInput.value = '';
+		waveGrow();
+		count.textContent = +count.textContent - 7 + bonusCount;
+		while (circle.firstChild) {
+			circle.removeChild(circle.firstChild);
+		}
+		createRandomCircle(1, 10);
+		if (errors == 1) {
+			gameOverBlock(count.textContent)
+			circle.style.display = 'none';
+			clearInterval(alive);
+		}
+	}
+
 }
-circleLife();
+
+circleLife()
+
+function waveGrow() {
+	let wave = document.querySelector('.wave .editorial');
+	let waveHeight = wave.clientHeight;
+	wave.style.height = waveHeight + 40 + 'px';
+}
+
+function gameOverBlock(count) {
+	let gameOver = document.querySelector('.game-over');
+	let newGameButton = document.querySelector('.restart-btn');
+	gameOver.style.display = 'block';
+	startNewGame(newGameButton)
+}
+
+
+createNewCapelca(getRandomPosition(0, width - 50));
 
 // let resultInput = document.querySelector('.result-input');
 // let count = document.querySelector('.count-number');
