@@ -1,19 +1,32 @@
 let raindrop = document.querySelector('.raindrop')
 let operations = ['*', '/', '+', '-'];
 const gameStartBtn = document.querySelector('.start-game-btn');
+const restartBtn = document.querySelector('.restart-btn');
 let resultInput = document.querySelector('.result-input');
 let count = document.querySelector('.count-number');
 let circle = document.createElement('div');
 let result;
 
 const startGame = document.querySelector('.start-game');
-startGame.style.display = 'none';
+// startGame.style.display = 'none';
 
-// gameStartBtn.addEventListener('click', () => {
-// 	const startGame = document.querySelector('.start-game');
-// 	startGame.style.display = 'none';
-// 	createNewCapelca(getRandomPosition(0, width - 50));
-// })
+gameStartBtn.addEventListener('click', startGameButton);
+restartBtn.addEventListener('click', gameOverBlock);
+
+function gameOverBlock(count) {
+	let gameOver = document.querySelector('.game-over');
+	// let newGameButton = document.querySelector('.restart-btn');
+	// gameOver.style.display = 'block';
+	// newGameButton.addEventListener('click',)
+	gameOver.style.display = 'block';
+	startGameButton();
+}
+
+function startGameButton() {
+	startGame.style.display = 'none';
+	createNewCapelca(getRandomPosition(0, width - 50));
+}
+
 
 const {
 	width
@@ -77,8 +90,9 @@ function getRandomPosition(min, max) {
 // createNewCapelca(getRandomPosition(0, width - 50));
 
 let waveSize = 200;
+let errors=0;
 
-function circleLife() {
+let circleLife = setInterval(function () {
 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveSize;
 	let bonusCount = 0;
@@ -93,9 +107,8 @@ function circleLife() {
 			}
 			createNewCapelca(getRandomPosition(0, width - 50));
 		}
-		
 	})
-	console.log(circleSize, windowMaxHeight)
+
 	if (circleSize >= windowMaxHeight) {
 		errors += 1;
 		resultInput.value = '';
@@ -104,17 +117,17 @@ function circleLife() {
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
-		createRandomCircle(1, 10);
+		createNewCapelca(getRandomPosition(0, width - 50));
 		if (errors == 1) {
 			gameOverBlock(count.textContent)
 			circle.style.display = 'none';
-			clearInterval(alive);
+			clearInterval(circleLife);
 		}
 	}
+},1000)
 
-}
 
-circleLife()
+// setInterval(circleLife, 1000);
 
 function waveGrow() {
 	let wave = document.querySelector('.wave .editorial');
@@ -122,15 +135,9 @@ function waveGrow() {
 	wave.style.height = waveHeight + 40 + 'px';
 }
 
-function gameOverBlock(count) {
-	let gameOver = document.querySelector('.game-over');
-	let newGameButton = document.querySelector('.restart-btn');
-	gameOver.style.display = 'block';
-	startNewGame(newGameButton)
-}
 
 
-createNewCapelca(getRandomPosition(0, width - 50));
+// createNewCapelca(getRandomPosition(0, width - 50));
 
 // let resultInput = document.querySelector('.result-input');
 // let count = document.querySelector('.count-number');
