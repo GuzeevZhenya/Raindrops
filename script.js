@@ -1,8 +1,13 @@
 let raindrop = document.querySelector('.raindrop')
 let operations = ['*', '/', '+', '-'];
 const gameStartBtn = document.querySelector('.start-game-btn');
+let resultInput = document.querySelector('.result-input');
+let count = document.querySelector('.count-number');
+let circle = document.createElement('div');
+let result;
 
-
+	// const startGame = document.querySelector('.start-game');
+	// startGame.style.display = 'none';
 
 gameStartBtn.addEventListener('click', () => {
 	const startGame = document.querySelector('.start-game');
@@ -10,13 +15,11 @@ gameStartBtn.addEventListener('click', () => {
 	createNewCapelca(getRandomPosition(0, width - 50));
 })
 
-
 const {
 	width
 } = raindrop.getBoundingClientRect()
 
-function createNewCapelca(x) {
-	let circle = document.createElement('div');
+function createNewCapelca(x = 40) {
 	let {
 		firstNumber,
 		operation,
@@ -29,27 +32,28 @@ function createNewCapelca(x) {
 	circle.style.left = `${x}px`
 
 
-	if (operation.textContent == '/') {
-		firstNumber.textContent = (firstNumber.textContent * secondNumber.textContent);
+	if (operation == '/') {
+		firstNumber= (firstNumber * secondNumber);
 	}
-	if (operation.textContent == '-') {
-		firstNumber.textContent = (firstNumber.textContent + secondNumber.textContent);
+	if (operation == '-') {
+		firstNumber = (firstNumber + secondNumber);
 	}
 
-	switch (operation.textContent) {
+	switch (operation) {
 		case '+':
-			result = +firstNumber.textContent + +secondNumber.textContent;
+			result = +firstNumber + +secondNumber;
 			break;
 		case '-':
-			result = firstNumber.textContent - secondNumber.textContent;
+			result = firstNumber - secondNumber;
 			break;
 		case '*':
-			result = firstNumber.textContent * secondNumber.textContent;
+			result = firstNumber * secondNumber;
 			break;
 		case '/':
-			result = firstNumber.textContent / secondNumber.textContent;
+			result = firstNumber / secondNumber;
 			break;
 	}
+
 
 	raindrop.append(circle);
 	circle.append(firstNumber)
@@ -72,71 +76,27 @@ function getRandomPosition(min, max) {
 	return Math.round(Math.random() * (max - min) + min)
 }
 
+// createNewCapelca(getRandomPosition(0, width - 50));
+let waveSize = 200;
 
 function circleLife() {
 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
-	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight)-waveSize;
+	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveSize;
+	let bonusCount = 0;
+
+	resultInput.addEventListener('change', () => {
+		if (resultInput.value == result) {
+			bonusCount += 1;
+			resultInput.value = '';
+			count.textContent = +count.textContent + 10 + bonusCount;
+			while (circle.firstChild) {
+				circle.removeChild(circle.firstChild);
+			}
+			createNewCapelca(getRandomPosition(0, width - 50));
+		}
+	})
 }
-// let waveSize = 160;
-
-// let alive = setInterval(function () {
-// 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
-// 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight)-waveSize;
-// 	let bonusCount = 0;
-
-// 	resultInput.addEventListener('change', () => {
-// 		if (resultInput.value == result) {
-// 			bonusCount += 1;
-// 			resultInput.value = '';
-// 			count.textContent = +count.textContent + 10 + bonusCount;
-// 			while (circle.firstChild) {
-// 				circle.removeChild(circle.firstChild);
-// 			}
-// 			createRandomCircle(1, 10);
-// 		} 
-// 	})
-// 	if (circleSize >= windowMaxHeight) {
-// 			errors += 1;
-// 			resultInput.value = '';
-// 			waveGrow();
-// 			count.textContent = +count.textContent - 7 + bonusCount;
-// 			while (circle.firstChild) {
-// 				circle.removeChild(circle.firstChild);
-// 			}
-// 			createRandomCircle(1, 10);
-// 			if(errors ==1){
-// 				gameOverBlock(count.textContent)
-// 				circle.style.display = 'none';
-// 				clearInterval(alive);
-// 			}
-// 	}
-
-// },1500)
-
-// function waveGrow() {
-// 	let wave = document.querySelector('.wave .editorial');
-// 	let waveHeight = wave.clientHeight;
-// 	wave.style.height =  waveHeight + 40 + 'px';
-// }
-
-
-// function gameOverBlock(count) {
-// 	let gameOver = document.querySelector('.game-over');
-// 	let newGameButton = document.querySelector('.restart-btn');
-// 	gameOver.style.display = 'block';
-// 	startNewGame(newGameButton)
-// }
-
-
-
-
-
-
-
-
-
-
-
+circleLife();
 
 // let resultInput = document.querySelector('.result-input');
 // let count = document.querySelector('.count-number');
@@ -209,9 +169,6 @@ function circleLife() {
 // function getRandomPosition(min, max) {
 // 	return Math.round(Math.random() * (max - min) + min)
 // }
-
-
-
 
 
 // let waveSize = 160;
