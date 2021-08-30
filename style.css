@@ -30,9 +30,6 @@ html {
 	height: 100vh;
 }
 
-.raindrop p{
-	color: black;
-}
 
 .capelca{
 	border: 1px solid rgb(64, 243, 234);
@@ -175,6 +172,10 @@ html {
 	margin:auto auto;
 	border-radius:30%;
 	flex-direction:column;
+	color:white;
+	font-size:24px;
+	text-align: center;
+	padding:50px 15px 20px 15px;
 }
 .start-game-btn{
 	background:white;

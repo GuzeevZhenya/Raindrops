@@ -10,13 +10,12 @@ let result;
 
 // startGame.style.display = 'none';
 
-
-
 const {
 	width
 } = raindrop.getBoundingClientRect()
 
 function createNewCapelca(x = 40) {
+	count.textContent = 0;
 	let {
 		firstNumber,
 		operation,
@@ -94,22 +93,21 @@ function circleLife() {
 	})
 console.log(circleSize,windowMaxHeight)
 	if (circleSize >= windowMaxHeight) {
+		count.textContent = 0;
 		errors += 1;
 		resultInput.value = '';
 		waveGrow();
 		count.textContent = +count.textContent - 7 + bonusCount;
-		// while (circle.firstChild) {
-		// 	circle.removeChild(circle.firstChild);
-		// }
-		circle.remove();
+		while (circle.firstChild) {
+			circle.removeChild(circle.firstChild);
+		}
+		// circle.remove();
 		// createNewCapelca(getRandomPosition(0, width - 50));
 		if (errors == 1) {
 			startGame(count.textContent,isLoseGame = true)
 		}
 	}
- 
-
- }
+}
 
 
 // setInterval(circleLife, 1000);
@@ -130,20 +128,16 @@ function startGame(count, isLoseGame = false) {
 		let counter = document.createElement('p');
 
 		loseGameText.textContent = 'Game Over';
-		counter.textContent = count;
+		counter.textContent = `Ваш счет ${count}`;
 		gameStartBtn.textContent = 'restart';
 
-		startGameBlock.append(counter);
-		startGameBlock.append(isLoseGame);
-
+		startGameBlock.prepend(counter);
 		errors = 0;
-		count.textContent = 0;
-
-		circle.style.display = 'none';
-
-	 
+		// count.textContent = 0;
 	
+		circle.style.display = 'none';
 	} else {
+		startGameBlock.removeChild(startGameBlock.firstChild);
 		startGameBlock.style.display = 'none';
 		circle.style.display = 'block';
 		createNewCapelca(getRandomPosition(0, width - 50));
