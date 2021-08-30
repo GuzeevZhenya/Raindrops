@@ -1,5 +1,6 @@
 let raindrop = document.querySelector('.raindrop')
 let operations = ['*', '/', '+', '-'];
+const startGameBlock = document.querySelector('.start-game');
 const gameStartBtn = document.querySelector('.start-game-btn');
 const restartBtn = document.querySelector('.restart-btn');
 let resultInput = document.querySelector('.result-input');
@@ -7,25 +8,8 @@ let count = document.querySelector('.count-number');
 let circle = document.createElement('div');
 let result;
 
-const startGame = document.querySelector('.start-game');
 // startGame.style.display = 'none';
 
-gameStartBtn.addEventListener('click', startGameButton);
-restartBtn.addEventListener('click', gameOverBlock);
-
-function gameOverBlock(count) {
-	let gameOver = document.querySelector('.game-over');
-	// let newGameButton = document.querySelector('.restart-btn');
-	// gameOver.style.display = 'block';
-	// newGameButton.addEventListener('click',)
-	gameOver.style.display = 'block';
-	startGameButton();
-}
-
-function startGameButton() {
-	startGame.style.display = 'none';
-	createNewCapelca(getRandomPosition(0, width - 50));
-}
 
 
 const {
@@ -90,9 +74,9 @@ function getRandomPosition(min, max) {
 // createNewCapelca(getRandomPosition(0, width - 50));
 
 let waveSize = 200;
-let errors=0;
+let errors = 0;
 
-let circleLife = setInterval(function () {
+function circleLife() {
 	let circleSize = parseInt(window.getComputedStyle(circle).getPropertyValue('top'));
 	let windowMaxHeight = window.screen.availHeight - (window.outerHeight - window.innerHeight) - waveSize;
 	let bonusCount = 0;
@@ -108,23 +92,24 @@ let circleLife = setInterval(function () {
 			createNewCapelca(getRandomPosition(0, width - 50));
 		}
 	})
-
+console.log(circleSize,windowMaxHeight)
 	if (circleSize >= windowMaxHeight) {
 		errors += 1;
 		resultInput.value = '';
 		waveGrow();
 		count.textContent = +count.textContent - 7 + bonusCount;
-		while (circle.firstChild) {
-			circle.removeChild(circle.firstChild);
-		}
-		createNewCapelca(getRandomPosition(0, width - 50));
+		// while (circle.firstChild) {
+		// 	circle.removeChild(circle.firstChild);
+		// }
+		circle.remove();
+		// createNewCapelca(getRandomPosition(0, width - 50));
 		if (errors == 1) {
-			gameOverBlock(count.textContent)
-			circle.style.display = 'none';
-			clearInterval(circleLife);
+			startGame(count.textContent,isLoseGame = true)
 		}
 	}
-},1000)
+ 
+
+ }
 
 
 // setInterval(circleLife, 1000);
@@ -133,6 +118,37 @@ function waveGrow() {
 	let wave = document.querySelector('.wave .editorial');
 	let waveHeight = wave.clientHeight;
 	wave.style.height = waveHeight + 40 + 'px';
+}
+
+gameStartBtn.addEventListener('click', startGame);
+
+function startGame(count, isLoseGame = false) {
+
+	if (isLoseGame) {
+		startGameBlock.style.display = 'block';
+		let loseGameText = document.createElement('p');
+		let counter = document.createElement('p');
+
+		loseGameText.textContent = 'Game Over';
+		counter.textContent = count;
+		gameStartBtn.textContent = 'restart';
+
+		startGameBlock.append(counter);
+		startGameBlock.append(isLoseGame);
+
+		errors = 0;
+		count.textContent = 0;
+
+		circle.style.display = 'none';
+
+	 
+	
+	} else {
+		startGameBlock.style.display = 'none';
+		circle.style.display = 'block';
+		createNewCapelca(getRandomPosition(0, width - 50));
+		setTimeout(circleLife, 4400);
+	}
 }
 
 
