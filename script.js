@@ -12,6 +12,8 @@ let result;
 let bonusCount = 0;
 let wave = document.querySelector('.wave .editorial');
 
+let rightAnswer = 0;
+
 
 const {
 	width
@@ -51,6 +53,32 @@ function createNewRaindrop(x = 40) {
 	circle.append(firstNumber)
 	circle.append(operation)
 	circle.append(secondNumber)
+
+	rightAnswer += 1;
+
+	// console.log(rightAnswer)
+	// switch (rightAnswer) {
+	// 	case 2:
+	// 		console.log(2)
+	// 		circle.style.animationDuration = '4s';
+	// 		break;
+	// 	case 4:
+	// 		console.log(4)
+	// 		circle.style.animationDuration = '3s';
+	// 		break;
+	// 	case 6:
+	// 		console.log(6)
+	// 		circle.style.animationDuration = '2s';
+	// 		break;
+	// 	case 8:
+	// 		console.log(8)
+	// 		circle.style.animationDuration = '1s';
+	// 		break;
+	// }
+	if (rightAnswer % 3 === 0) {
+		circle.style.animationDuration = '1s';
+	}
+
 }
 
 function generateEquationNumbers() {
@@ -113,27 +141,34 @@ function waveReset() {
 	wave.style.height = 160 + 'px';
 }
 
-gameStartBtn.forEach(item=>item.addEventListener('click',startGame))
+gameStartBtn.forEach(item => item.addEventListener('click', startGame))
 
 
-function startGame(count, isLoseGame = false) {
+function startGame(loseGameCount, isLoseGame = false) {
 	if (isLoseGame) {
 		gameOver.style.display = "flex";
 		startGameBlock.style.display = "none";
 		errors = 0;
 		circle.style.display = 'none';
-		gameOverCount.textContent = count;
-		count.textContent = 0;
+		gameOverCount.textContent = loseGameCount;
 	} else {
+		count.textContent = 0;
 		startGameBlock.style.display = "none";
 		gameOver.style.display = "none";
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
+
 		circle.style.display = 'block';
-		// startGameBlock.removeChild(startGameBlock.firstChild);
+		startGameBlock.removeChild(startGameBlock.firstChild);
 
 		createNewRaindrop(getRandomPosition(0, width - 50));
 		setInterval(circleLife, 1000);
 	}
 }
+
+// function gameSpeed() {
+// 	let a = document.querySelector('.circle');
+
+// 	circle.style.animationDuration -= '1s';
+// }
