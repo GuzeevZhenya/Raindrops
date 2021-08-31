@@ -5,10 +5,14 @@ const gameStartBtn = document.querySelectorAll('.start-game-btn');
 const restartBtn = document.querySelector('.restart-btn');
 let resultInput = document.querySelector('.result-input');
 let count = document.querySelector('.count-number');
+let gameOverCount = document.querySelector('.game-count-number')
 let circle = document.createElement('div');
 const gameOver = document.querySelector('.game-over');
 let result;
 let bonusCount = 0;
+let wave = document.querySelector('.wave .editorial');
+
+
 const {
 	width
 } = raindrop.getBoundingClientRect()
@@ -91,47 +95,45 @@ function circleLife() {
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
+		createNewRaindrop(getRandomPosition(0, width - 50));
 		if (errors == 1) {
 			startGame(count.textContent, isLoseGame = true)
+			waveReset();
 		}
 	}
 }
 
 function waveGrow() {
-	let wave = document.querySelector('.wave .editorial');
 	let waveHeight = wave.clientHeight;
+	console.log(wave);
 	wave.style.height = waveHeight + 40 + 'px';
 }
 
+function waveReset() {
+	wave.style.height = 160 + 'px';
+}
+
 gameStartBtn.forEach(item=>item.addEventListener('click',startGame))
-// gameStartBtn.addEventListener('click', startGame);
+
 
 function startGame(count, isLoseGame = false) {
-	console.log(1)
 	if (isLoseGame) {
-		console.log(2)
-		gameOver.style.display = "block";
+		gameOver.style.display = "flex";
 		startGameBlock.style.display = "none";
-		// startGameBlock.style.display = 'block';
-		// let loseGameText = document.createElement('p');
-		// let counter = document.createElement('p');
-
-		// loseGameText.textContent = 'Game Over';
-		// counter.textContent = `Ваш счет ${count}`;
-		// gameStartBtn.textContent = 'restart';
-
-		// startGameBlock.prepend(counter);
 		errors = 0;
 		circle.style.display = 'none';
+		gameOverCount.textContent = count;
+		count.textContent = 0;
 	} else {
-		console.log(3)
 		startGameBlock.style.display = "none";
 		gameOver.style.display = "none";
-		
-		startGameBlock.removeChild(startGameBlock.firstChild);
+		while (circle.firstChild) {
+			circle.removeChild(circle.firstChild);
+		}
 		circle.style.display = 'block';
+		// startGameBlock.removeChild(startGameBlock.firstChild);
+
 		createNewRaindrop(getRandomPosition(0, width - 50));
 		setInterval(circleLife, 1000);
 	}
 }
-
