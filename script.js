@@ -118,7 +118,13 @@ function circleLife() {
 // 	wave.style.height = 160 + 'px';
 // }
 
-gameStartBtn.forEach(item => item.addEventListener('click', startGame))
+// gameStartBtn.forEach(item => item.addEventListener('click', startGame))
+document.addEventListener('click', (e) => {
+	const target = e.target;
+	if (target.classList.contains('start-game-btn')) {
+		 startGame()
+	}
+})
 
 
 function startGame(loseGameCount, isLoseGame = false) {
@@ -146,7 +152,6 @@ function startGame(loseGameCount, isLoseGame = false) {
 }
 
 function gameSpeed(rightAnswer) {
-	console.log(rightAnswer)
 	switch (rightAnswer) {
 		case 4:
 			circle.style.animationDuration = '4s';
