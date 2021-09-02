@@ -1,8 +1,9 @@
+import waveClass from './wave.js'
+
 let raindrop = document.querySelector('.raindrop')
 const operations = ['*', '/', '+', '-'];
 const startGameBlock = document.querySelector('.start-game');
 const gameStartBtn = document.querySelectorAll('.start-game-btn');
-const restartBtn = document.querySelector('.restart-btn');
 let resultInput = document.querySelector('.result-input');
 let count = document.querySelector('.count-number');
 let gameOverCount = document.querySelector('.game-count-number')
@@ -10,9 +11,13 @@ let circle = document.createElement('div');
 const gameOver = document.querySelector('.game-over');
 let result;
 let bonusCount = 0;
-let wave = document.querySelector('.wave .editorial');
-
+// let wave = document.querySelector('.wave .editorial');
+circle.style.animationDuration = '5s';
 let rightAnswer = 0;
+let isLoseGame;
+let waveSize = 200;
+let errors = 0;
+
 
 
 const {
@@ -53,32 +58,6 @@ function createNewRaindrop(x = 40) {
 	circle.append(firstNumber)
 	circle.append(operation)
 	circle.append(secondNumber)
-
-	rightAnswer += 1;
-
-	// console.log(rightAnswer)
-	// switch (rightAnswer) {
-	// 	case 2:
-	// 		console.log(2)
-	// 		circle.style.animationDuration = '4s';
-	// 		break;
-	// 	case 4:
-	// 		console.log(4)
-	// 		circle.style.animationDuration = '3s';
-	// 		break;
-	// 	case 6:
-	// 		console.log(6)
-	// 		circle.style.animationDuration = '2s';
-	// 		break;
-	// 	case 8:
-	// 		console.log(8)
-	// 		circle.style.animationDuration = '1s';
-	// 		break;
-	// }
-	if (rightAnswer % 3 === 0) {
-		circle.style.animationDuration = '1s';
-	}
-
 }
 
 function generateEquationNumbers() {
@@ -96,10 +75,6 @@ function getRandomPosition(min, max) {
 	return Math.round(Math.random() * (max - min) + min)
 }
 
-let waveSize = 200;
-let errors = 0;
-
-
 resultInput.addEventListener('change', () => {
 	if (resultInput.value == result) {
 		bonusCount += 1;
@@ -108,6 +83,8 @@ resultInput.addEventListener('change', () => {
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
+		rightAnswer += 1;
+		gameSpeed(rightAnswer)
 		createNewRaindrop(getRandomPosition(0, width - 50));
 	}
 })
@@ -118,28 +95,28 @@ function circleLife() {
 	if (circleSize >= windowMaxHeight) {
 		errors += 1;
 		resultInput.value = '';
-		waveGrow();
+		waveClass.waveGrow();
 		count.textContent = +count.textContent - 7 + bonusCount;
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
 		createNewRaindrop(getRandomPosition(0, width - 50));
-		if (errors == 1) {
+		if (errors == 4) {
 			startGame(count.textContent, isLoseGame = true)
-			waveReset();
+			waveClass.waveReset();
 		}
 	}
 }
 
-function waveGrow() {
-	let waveHeight = wave.clientHeight;
-	console.log(wave);
-	wave.style.height = waveHeight + 40 + 'px';
-}
+// function waveGrow() {
+// 	let waveHeight = wave.clientHeight;
+// 	console.log(wave);
+// 	wave.style.height = waveHeight + 40 + 'px';
+// }
 
-function waveReset() {
-	wave.style.height = 160 + 'px';
-}
+// function waveReset() {
+// 	wave.style.height = 160 + 'px';
+// }
 
 gameStartBtn.forEach(item => item.addEventListener('click', startGame))
 
@@ -160,15 +137,28 @@ function startGame(loseGameCount, isLoseGame = false) {
 		}
 
 		circle.style.display = 'block';
-		startGameBlock.removeChild(startGameBlock.firstChild);
+		// startGameBlock.removeChild(startGameBlock.firstChild);
 
 		createNewRaindrop(getRandomPosition(0, width - 50));
+		
 		setInterval(circleLife, 1000);
 	}
 }
 
-// function gameSpeed() {
-// 	let a = document.querySelector('.circle');
-
-// 	circle.style.animationDuration -= '1s';
-// }
+function gameSpeed(rightAnswer) {
+	console.log(rightAnswer)
+	switch (rightAnswer) {
+		case 4:
+			circle.style.animationDuration = '4s';
+			break;
+		case 7:
+			circle.style.animationDuration = '3s';
+			break;
+		case 11:
+			circle.style.animationDuration = '2s';
+			break;
+		case 15:
+			circle.style.animationDuration = '1s';
+			break;
+	}
+}
