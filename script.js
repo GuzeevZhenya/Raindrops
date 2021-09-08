@@ -1,9 +1,10 @@
 import waveClass from './wave.js'
 
+
 let raindrop = document.querySelector('.raindrop')
 const operations = ['*', '/', '+', '-'];
 const startGameBlock = document.querySelector('.start-game');
-const gameStartBtn = document.querySelectorAll('.start-game-btn');
+
 let resultInput = document.querySelector('.result-input');
 let count = document.querySelector('.count-number');
 let gameOverCount = document.querySelector('.game-count-number')
@@ -11,13 +12,16 @@ let circle = document.createElement('div');
 const gameOver = document.querySelector('.game-over');
 let result;
 let bonusCount = 0;
-// let wave = document.querySelector('.wave .editorial');
+const seaSound = document.querySelector('.sea-sound')
+let audioMusic = document.querySelector('.audio-music')
+
 circle.style.animationDuration = '5s';
 let rightAnswer = 0;
 let isLoseGame;
 let waveSize = 200;
 let errors = 0;
 
+seaSound.play();
 
 
 const {
@@ -85,7 +89,10 @@ resultInput.addEventListener('change', () => {
 		}
 		rightAnswer += 1;
 		gameSpeed(rightAnswer)
+		audioPlay('right')
+
 		createNewRaindrop(getRandomPosition(0, width - 50));
+
 	}
 })
 
@@ -97,28 +104,20 @@ function circleLife() {
 		resultInput.value = '';
 		waveClass.waveGrow();
 		count.textContent = +count.textContent - 7 + bonusCount;
+		
 		while (circle.firstChild) {
 			circle.removeChild(circle.firstChild);
 		}
 		createNewRaindrop(getRandomPosition(0, width - 50));
-		if (errors == 4) {
+		audioPlay('error');
+		if (errors == 3) {
 			startGame(count.textContent, isLoseGame = true)
 			waveClass.waveReset();
+			audioPlay('lose')
 		}
 	}
 }
 
-// function waveGrow() {
-// 	let waveHeight = wave.clientHeight;
-// 	console.log(wave);
-// 	wave.style.height = waveHeight + 40 + 'px';
-// }
-
-// function waveReset() {
-// 	wave.style.height = 160 + 'px';
-// }
-
-// gameStartBtn.forEach(item => item.addEventListener('click', startGame))
 document.addEventListener('click', (e) => {
 	const target = e.target;
 	if (target.classList.contains('start-game-btn')) {
@@ -134,6 +133,7 @@ function startGame(loseGameCount, isLoseGame = false) {
 		errors = 0;
 		circle.style.display = 'none';
 		gameOverCount.textContent = loseGameCount;
+	
 	} else {
 		count.textContent = 0;
 		startGameBlock.style.display = "none";
@@ -167,3 +167,18 @@ function gameSpeed(rightAnswer) {
 			break;
 	}
 }
+
+
+function audioPlay(loseGame) {
+	console.log(loseGame)
+	if (loseGame === 'lose') {
+		audioMusic.src = 'audio/lose.mp3'
+	} else if(loseGame === 'error') {
+		audioMusic.src = 'audio/error.mp3'
+	} else {
+		audioMusic.src = 'audio/right.mp3'
+	}
+ 
+	audioMusic.play();
+}
+

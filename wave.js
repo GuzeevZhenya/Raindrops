@@ -1,6 +1,6 @@
 class Wave {
-	constructor(wave) {
-		this.wave = wave;
+	constructor() {
+		this.wave = document.querySelector('.wave .editorial');
 	}
 
 	waveReset() {
@@ -13,7 +13,7 @@ class Wave {
 	}
 }
 
-let wave = document.querySelector('.wave .editorial');
-const waveClass = new Wave(wave);
+// let wave = document.querySelector('.wave .editorial');
+const waveClass = new Wave();
 
 export default waveClass;
